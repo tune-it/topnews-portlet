@@ -33,6 +33,7 @@ import com.liferay.portlet.bookmarks.NoSuchFolderException;
 import com.liferay.portlet.imagegallery.DuplicateImageNameException;
 import com.liferay.portlet.imagegallery.ImageNameException;
 import com.liferay.portlet.imagegallery.ImageSizeException;
+import com.liferay.portlet.imagegallery.NoSuchImageException;
 import com.liferay.portlet.imagegallery.model.IGImage;
 import com.liferay.portlet.imagegallery.service.IGImageServiceUtil;
 import com.liferay.util.bridges.mvc.MVCPortlet;
@@ -102,8 +103,18 @@ public class TopNewsPortlet extends MVCPortlet {
                 if (Validator.isNull(name)) {
                     name = fileName;
                 }
-                IGImage image = IGImageServiceUtil.addImage(groupId, folderId,
-                        name, description, file, contentType, serviceContext);
+                
+                IGImage image = null;
+                try {
+                    // If image exists, delete it and replace by uploaded image
+                    image = IGImageServiceUtil.getImageByFolderIdAndNameWithExtension(groupId, folderId, name);
+                    IGImageServiceUtil.deleteImage(image.getImageId());
+                } catch(NoSuchImageException e){
+                    // First-time upload of this image
+                } finally {
+                    image = IGImageServiceUtil.addImage(groupId, folderId,
+                            name, description, file, contentType, serviceContext);
+                }      
 
                 // form image URL
                 String serverURL = PortalUtil.getPortalURL(req)
@@ -114,7 +125,7 @@ public class TopNewsPortlet extends MVCPortlet {
                         + "&t="
                         + ImageServletTokenUtil.getToken(image
                                 .getLargeImageId());
-
+                
                 // We need to set topImageURL value somewhere
                 String paramName = filePosition + "ImageURL";
                 preferences.setValue(paramName, serverURL);

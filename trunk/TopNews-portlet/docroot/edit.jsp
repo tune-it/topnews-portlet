@@ -45,7 +45,7 @@
 						value="<%= topNewsURL %>" />
 					<aui:input id="topNewsText" label="News text" name="topNewsText"
 						value="<%= topNewsText %>" />
-					<aui:input id="topImageURL" label="Image (210x200px) URL"
+					<aui:input id="topImageURL" label="Image (260x250px) URL"
 						name="topImageURL" value="<%= topImageURL %>" />
 
 					<!-- top upload element -->
@@ -117,7 +117,7 @@
 						value="<%= middleNewsURL %>" />
 					<aui:input id="middleNewsText" label="News text"
 						name="middleNewsText" value="<%= middleNewsText %>" />
-					<aui:input id="middleImageURL" label="Image (210x200px) URL"
+					<aui:input id="middleImageURL" label="Image (260x250px) URL"
 						name="middleImageURL" value="<%= middleImageURL %>" />
 
 					<!-- middle upload element -->
@@ -188,7 +188,7 @@
 						value="<%= bottomNewsURL %>" />
 					<aui:input id="bottomNewsText" label="News text"
 						name="bottomNewsText" value="<%= bottomNewsText %>" />
-					<aui:input id="bottomImageURL" label="Image (210x200px) URL"
+					<aui:input id="bottomImageURL" label="Image (260x250px) URL"
 						name="bottomImageURL" value="<%= bottomImageURL %>" />
 
 					<!-- bottom upload element -->

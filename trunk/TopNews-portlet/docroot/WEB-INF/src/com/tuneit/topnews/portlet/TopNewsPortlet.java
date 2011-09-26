@@ -2,6 +2,7 @@ package com.tuneit.topnews.portlet;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Enumeration;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -42,26 +43,10 @@ public class TopNewsPortlet extends MVCPortlet {
 
     private static Log _log = LogFactoryUtil.getLog(TopNewsPortlet.class);
 
-    private static final String[] parameterNames = { "imageURL", "newsURL",
+    private static final String[] parameterNames = { "newsURL",
             "newsText", "newsDay", "newsMonth", "newsYear" };
 
     public void updatePreferences(ActionRequest req, ActionResponse res)
-            throws ReadOnlyException, ValidatorException, IOException {
-        String newsPosition = req.getParameter("newsPosition");
-        PortletPreferences preferences = req.getPreferences();
-
-        for (String parameterName : parameterNames) {
-            String parameterKey = newsPosition
-                    + parameterName.substring(0, 1).toUpperCase()
-                    + parameterName.substring(1, parameterName.length());
-            String parameterValue = req.getParameter(parameterName);
-            preferences.setValue(parameterKey, parameterValue);
-        }
-
-        preferences.store();
-    }
-
-    public void uploadImage(ActionRequest req, ActionResponse res)
             throws ReadOnlyException, ValidatorException, IOException,
             Exception {
         try {
@@ -81,9 +66,11 @@ public class TopNewsPortlet extends MVCPortlet {
             String fileName = uploadRequest.getFileName(fileFieldPosition);
             String description = ParamUtil.getString(uploadRequest,
                     "description", fileName);
+            
             File file = uploadRequest.getFile(fileFieldPosition);
 
-            if (file != null) {
+            if (file != null && fileName.length() > 0) {
+                System.out.println(file.getName());
                 String contentType = getContentType(uploadRequest, file,
                         fileFieldPosition);
 
@@ -129,10 +116,21 @@ public class TopNewsPortlet extends MVCPortlet {
                 // We need to set topImageURL value somewhere
                 String paramName = filePosition + "ImageURL";
                 preferences.setValue(paramName, serverURL);
-                preferences.store();
-
-                sendRedirect(req, res, redirect);
+            } else {
+                preferences.setValue(filePosition + "ImageURL", ParamUtil.getString(uploadRequest, "imageURL"));
             }
+            
+            for (String parameterName : parameterNames) {
+                String parameterKey = filePosition
+                        + parameterName.substring(0, 1).toUpperCase()
+                        + parameterName.substring(1, parameterName.length());
+                String parameterValue = ParamUtil.getString(uploadRequest, parameterName);
+                preferences.setValue(parameterKey, parameterValue);
+            }
+            
+            preferences.store();
+            
+            sendRedirect(req, res, redirect);
 
         } catch (Exception e) {
             if (e instanceof DuplicateImageNameException

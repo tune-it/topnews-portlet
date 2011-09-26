@@ -1,9 +1,14 @@
 package com.tuneit.topnews.portlet;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Enumeration;
 
+import javax.imageio.ImageIO;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletPreferences;
@@ -41,7 +46,7 @@ import com.liferay.util.bridges.mvc.MVCPortlet;
 
 public class TopNewsPortlet extends MVCPortlet {
 
-    private static Log _log = LogFactoryUtil.getLog(TopNewsPortlet.class);
+    private static Log log = LogFactoryUtil.getLog(TopNewsPortlet.class);
 
     private static final String[] parameterNames = { "newsURL",
             "newsText", "newsDay", "newsMonth", "newsYear" };
@@ -68,9 +73,11 @@ public class TopNewsPortlet extends MVCPortlet {
                     "description", fileName);
             
             File file = uploadRequest.getFile(fileFieldPosition);
-
             if (file != null && fileName.length() > 0) {
-                System.out.println(file.getName());
+                
+                file = scaleImage(file, 260, 250);
+                log.debug(file.getName());
+                
                 String contentType = getContentType(uploadRequest, file,
                         fileFieldPosition);
 
@@ -96,8 +103,10 @@ public class TopNewsPortlet extends MVCPortlet {
                     // If image exists, delete it and replace by uploaded image
                     image = IGImageServiceUtil.getImageByFolderIdAndNameWithExtension(groupId, folderId, name);
                     IGImageServiceUtil.deleteImage(image.getImageId());
+                    
                 } catch(NoSuchImageException e){
                     // First-time upload of this image
+                    
                 } finally {
                     image = IGImageServiceUtil.addImage(groupId, folderId,
                             name, description, file, contentType, serviceContext);
@@ -194,6 +203,56 @@ public class TopNewsPortlet extends MVCPortlet {
 
             actionResponse.sendRedirect(redirect);
         }
+    }
+    
+    private File scaleImage(File file, int tw, int th) throws IOException {
+        // Create the image
+        BufferedImage image = new BufferedImage(tw, th, BufferedImage.TYPE_INT_ARGB);
+        // Create the graphics
+        Graphics2D graphics = image.createGraphics();
+        try {
+            // Set rendering hints
+            graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            graphics.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+            graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+            
+            // Open the source image
+            BufferedImage source = ImageIO.read(file);
+            
+            // Get width & height
+            int w = source.getWidth(), h = source.getHeight();
+            
+            // Calculate the scale
+            double scale = Math.min(Math.min((double)tw / (double)w, (double)th / (double)h), 1);
+            
+            // Calculate the coordinates
+            int x = (int)(((double)tw - (double)w * scale) / 2.0d), y = (int)(((double)th - (double)h * scale) / 2.0d);
+            
+            // Get the scaled instance
+            Image scaled = source.getScaledInstance((int)(w * scale), (int)(h * scale), Image.SCALE_SMOOTH);
+            
+            // Set the color
+            graphics.setColor(new Color(0, 0, 0,0));
+            
+            // Paint the white rectangle
+            graphics.fillRect(0, 0, tw, th);
+            
+            // Draw the image
+            graphics.drawImage(scaled, x, y, null);
+            
+        // If image is in vector format
+        } catch(NullPointerException ne){
+            return null; 
+         
+        // Always dispose the graphics    
+        } finally {
+            graphics.dispose();
+        }
+        
+        // Write the rescaled image
+        File output = new File(file.getPath());
+        ImageIO.write(image, "png", output);
+        return output;
     }
     
 }

@@ -9,6 +9,16 @@
     position: relative;
 }
 
+.main-news .clear {
+	clear: both;
+}	
+
+.main-news .center {
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+}
+
 .main-news .news-in {
     height: 250px;
 }
@@ -233,4 +243,8 @@
 
 .aui-field-input, .aui-field-labels-top .aui-field-input {
     width: 90%;
+}
+
+.img-preview {
+	border: 1px solid #C8C9CA;
 }

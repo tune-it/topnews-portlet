@@ -86,7 +86,7 @@
 
 						<aui:fieldset>
 							<aui:input name="topFile" type="file" label="Choose image" />
-							<aui:button type="submit" value="Save" />
+							<aui:button type="submit" value="Save" class="clear"/>
 						</aui:fieldset>
 					</aui:form>
 
@@ -95,8 +95,9 @@
 
 				</aui:column>
 				<aui:column columnWidth="40" last="true">
-					<img src="<%=topImageURL%>" alt="<%=topNewsText%>" 
-						width="260" height="250" />
+					<img src="<%=topImageURL%>" alt="<%=topNewsText%>"  
+						width="260" height="250" class="img-preview"/>
+					<span>260x250</span>
 				</aui:column>
 			</aui:layout>
 		</div>
@@ -158,7 +159,7 @@
 
 						<aui:fieldset>
 							<aui:input name="middleFile" type="file" label="Choose image" />
-							<aui:button type="submit" value="Save" />
+							<aui:button type="submit" value="Save" class="clear"/>
 						</aui:fieldset>
 					</aui:form>
 
@@ -168,7 +169,8 @@
 				</aui:column>
 				<aui:column columnWidth="40" last="true">
 					<img src="<%=middleImageURL%>" alt="<%=middleNewsText%>"
-						width="260" height="250"> 
+						width="260" height="250" class="img-preview" /> 
+					<span>260x250</span>
 				</aui:column>
 			</aui:layout>
 		</div>
@@ -230,7 +232,7 @@
 
 						<aui:fieldset>
 							<aui:input name="bottomFile" type="file" label="Choose image" />
-							<aui:button type="submit" value="Save" />
+							<aui:button type="submit" value="Save" class="clear"/>
 						</aui:fieldset>
 					</aui:form>
 
@@ -240,7 +242,8 @@
 				</aui:column>
 				<aui:column columnWidth="40" last="true">
 					<img src="<%=bottomImageURL%>" alt="<%=bottomNewsText%>"
-						width="260" height="250">
+						width="260" height="250" class="img-preview" />
+					<span>260x250</span>
 				</aui:column>
 			</aui:layout>
 		</div>

@@ -20,16 +20,16 @@
 		<div class="news-tr"></div>
 		
 		<span id="<portlet:namespace />news1Img" class="img">
-			<img alt="<%= topNewsText %>" src="<%= topImageURL %>" width="260" height="250">
+			<img alt="<%= topNewsText %>" src="<%= topImageURL %>" class="center" width="260" height="250">
 			<i></i>
 		</span>
 		<span id="<portlet:namespace />news2Img" class="img" style="display:none">
-			<img alt="<%= middleNewsText %>" src="<%= middleImageURL %>" width="260" height="250">
+			<img alt="<%= middleNewsText %>" src="<%= middleImageURL %>" class="center"  width="260" height="250">
 			<i></i>
 		</span>
 		
-		<span id="<portlet:namespace />news3Img" class="img" style="display:none">
-			<img alt="<%= bottomNewsText %>" src="<%= bottomImageURL %>" width="260" height="250">
+		<span id="<portlet:namespace />news3Img" class="img" style="display:none">		
+			<img alt="<%= bottomNewsText %>" src="<%= bottomImageURL %>" class="center"  width="260" height="250">		
 			<i></i>
 		</span>
 		

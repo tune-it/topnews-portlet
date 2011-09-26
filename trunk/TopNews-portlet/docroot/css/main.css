@@ -1,3 +1,15 @@
+.clear {
+	clear: both;
+}	
+
+.gray {
+	color: gray;
+}
+
+.txt-right-content {
+	text-align: right;	
+}	
+
 .main-news {
     font-size: 1.2em;
     height: 250px;
@@ -8,10 +20,6 @@
     overflow-y: hidden;
     position: relative;
 }
-
-.main-news .clear {
-	clear: both;
-}	
 
 .main-news .center {
 	margin-left: auto;

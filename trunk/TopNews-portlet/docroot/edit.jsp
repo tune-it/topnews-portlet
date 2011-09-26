@@ -94,10 +94,10 @@
 						message="uploading" redirect="" />
 
 				</aui:column>
-				<aui:column columnWidth="40" last="true">
+				<aui:column columnWidth="40" cssClass="txt-right" last="true">
 					<img src="<%=topImageURL%>" alt="<%=topNewsText%>"  
 						width="260" height="250" class="img-preview"/>
-					<span>260x250</span>
+					<div class="gray clear">260x250</div>
 				</aui:column>
 			</aui:layout>
 		</div>
@@ -167,10 +167,10 @@
 						message="uploading" redirect="" />
 
 				</aui:column>
-				<aui:column columnWidth="40" last="true">
+				<aui:column columnWidth="40" cssClass="txt-right" last="true">
 					<img src="<%=middleImageURL%>" alt="<%=middleNewsText%>"
 						width="260" height="250" class="img-preview" /> 
-					<span>260x250</span>
+					<div class="gray clear">260x250</div>
 				</aui:column>
 			</aui:layout>
 		</div>
@@ -240,10 +240,10 @@
 						message="uploading" redirect="" />
 
 				</aui:column>
-				<aui:column columnWidth="40" last="true">
+				<aui:column columnWidth="40" cssClass="txt-right" last="true">
 					<img src="<%=bottomImageURL%>" alt="<%=bottomNewsText%>"
 						width="260" height="250" class="img-preview" />
-					<span>260x250</span>
+					<div class="gray clear">260x250</div>
 				</aui:column>
 			</aui:layout>
 		</div>

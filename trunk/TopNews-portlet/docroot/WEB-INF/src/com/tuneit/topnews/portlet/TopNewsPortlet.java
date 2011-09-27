@@ -48,8 +48,8 @@ public class TopNewsPortlet extends MVCPortlet {
 
     private static Log log = LogFactoryUtil.getLog(TopNewsPortlet.class);
 
-    private static final String[] parameterNames = { "newsURL",
-            "newsText", "newsDay", "newsMonth", "newsYear" };
+    private static final String[] parameterNames = { "NewsURL",
+            "NewsText", "NewsDay", "NewsMonth", "NewsYear" };
 
     public void updatePreferences(ActionRequest req, ActionResponse res)
             throws ReadOnlyException, ValidatorException, IOException,
@@ -130,10 +130,8 @@ public class TopNewsPortlet extends MVCPortlet {
             }
             
             for (String parameterName : parameterNames) {
-                String parameterKey = filePosition
-                        + parameterName.substring(0, 1).toUpperCase()
-                        + parameterName.substring(1, parameterName.length());
-                String parameterValue = ParamUtil.getString(uploadRequest, parameterName);
+                String parameterKey = filePosition.concat(parameterName);
+                String parameterValue = ParamUtil.getString(uploadRequest, parameterKey);
                 preferences.setValue(parameterKey, parameterValue);
             }
             

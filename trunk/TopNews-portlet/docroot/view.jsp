@@ -20,30 +20,31 @@
 		<div class="news-tr"></div>
 		
 		<span id="<portlet:namespace />news1Img" class="img">
-			<img alt="<%= topNewsText %>" src="<%= topImageURL %>" class="center" width="260" height="250">
+			<img alt="<%= newsMap.get("topNewsText") %>" src="<%= newsMap.get("topImageURL") %>" class="center" width="260" height="250">
 			<i></i>
 		</span>
 		<span id="<portlet:namespace />news2Img" class="img" style="display:none">
-			<img alt="<%= middleNewsText %>" src="<%= middleImageURL %>" class="center"  width="260" height="250">
+			<img alt="<%= newsMap.get("middleNewsText") %>" src="<%= newsMap.get("middleImageURL") %>" class="center"  width="260" height="250">
 			<i></i>
 		</span>
 		
 		<span id="<portlet:namespace />news3Img" class="img" style="display:none">		
-			<img alt="<%= bottomNewsText %>" src="<%= bottomImageURL %>" class="center"  width="260" height="250">		
+			<img alt="<%= newsMap.get("bottomNewsText") %>" src="<%= newsMap.get("bottomImageURL") %>" class="center"  width="260" height="250">		
 			<i></i>
 		</span>
 		
 		<ul class="news">
 			<li id="<portlet:namespace />news1" class="here">
-				<a title="News" href="<%= topNewsURL %>"><%= topNewsText %><span><%= format.format(topNewsDate.getTime()) %></span></a>
+				<a title="News" href="<%= newsMap.get("topNewsURL") %>">
+					<%= newsMap.get("topNewsText") %><span><%= format.format(((Calendar) newsMap.get("topNewsDate")).getTime()) %></span></a>
 				<i></i>
 			</li>
 			<li id="<portlet:namespace />news2">
-				<a title="News" href="<%= middleNewsURL %>"><%= middleNewsText %><span><%= format.format(middleNewsDate.getTime()) %></span></a>
+				<a title="News" href="<%= newsMap.get("middleNewsURL") %>"><%= newsMap.get("middleNewsText") %><span><%= format.format(((Calendar) newsMap.get("middleNewsDate")).getTime()) %></span></a>
 				<i></i>
 			</li>
 			<li id="<portlet:namespace />news3" >
-				<a title="News" href="<%= bottomNewsURL %>"><%= bottomNewsText %><span><%= format.format(bottomNewsDate.getTime()) %></span></a>
+				<a title="News" href="<%= newsMap.get("bottomNewsURL") %>"><%= newsMap.get("bottomNewsText") %><span><%= format.format(((Calendar) newsMap.get("bottomNewsDate")).getTime()) %></span></a>
 				<i></i>
 			</li>
 		</ul>

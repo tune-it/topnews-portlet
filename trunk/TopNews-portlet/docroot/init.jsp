@@ -1,5 +1,3 @@
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="java.text.DateFormat"%>
 <%
 /**
 * Copyright (c) 2011 Tune IT.
@@ -14,16 +12,21 @@
 <%@ taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %>
 <%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 
+<%@ page import="java.util.ResourceBundle" %>
+<%@ page import="java.util.Calendar" %>
+<%@ page import="java.util.HashMap"%>
+<%@ page import="java.util.Map"%>
+<%@ page import="java.text.SimpleDateFormat"%>
+<%@ page import="java.text.DateFormat"%>
+
+<%@ page import="javax.portlet.WindowState" %>
+<%@ page import="javax.portlet.PortletPreferences" %>
+
 <%@ page import="com.liferay.portal.kernel.util.ParamUtil" %>
 <%@ page import="com.liferay.portal.kernel.util.Validator"%>
 <%@ page import="com.liferay.portal.kernel.util.StringPool" %>
 <%@ page import="com.liferay.portal.kernel.util.CalendarFactoryUtil" %>
 <%@ page import="com.liferay.portlet.PortletPreferencesFactoryUtil"%>
-<%@ page import="java.util.ResourceBundle" %>
-<%@ page import="java.util.Calendar" %>
-<%@ page import="javax.portlet.WindowState" %>
-<%@ page import="javax.portlet.PortletPreferences" %>
-
 <%@ page import="com.liferay.portal.kernel.util.PrefsPropsUtil" %>
 <%@ page import="com.liferay.portal.kernel.language.LanguageUtil" %>
 <%@ page import="com.liferay.portal.kernel.language.UnicodeLanguageUtil" %>
@@ -53,44 +56,33 @@ if (Validator.isNotNull(portletResource)) {
 Calendar defaultValueDate = CalendarFactoryUtil.getCalendar(timeZone, locale);
 DateFormat format = new SimpleDateFormat("dd.MM.yyyy", locale);
 
-// Top
-String topImageURL = preferences.getValue("topImageURL", "/Top-news-portlet/img/default-news.png");
-String topNewsURL = preferences.getValue("topNewsURL", "http://www.tune-it.ru");
-String topNewsText = preferences.getValue("topNewsText", "You can change text/image in portlet preferences.");
-String topNewsDay = preferences.getValue("topNewsDay", null);
-String topNewsMonth = preferences.getValue("topNewsMonth", null);
-String topNewsYear = preferences.getValue("topNewsYear", null);
-Calendar topNewsDate = defaultValueDate;
-if (topNewsDay != null && topNewsMonth != null && topNewsYear != null) {
-	topNewsDate = CalendarFactoryUtil.getCalendar(Integer.parseInt(topNewsYear), Integer.parseInt(topNewsMonth), Integer.parseInt(topNewsDay));
-}
-String topUploadProgressId = "topIdImageUploadProgress";
+String[] newsPositions = {"top", "middle", "bottom"};
+Map<String, Object> newsMap = new HashMap<String, Object>();
 
-// Middle
-String middleImageURL = preferences.getValue("middleImageURL", "");
-String middleNewsURL = preferences.getValue("middleNewsURL", "");
-String middleNewsText = preferences.getValue("middleNewsText", "");
-String middleNewsDay = preferences.getValue("middleNewsDay", null);
-String middleNewsMonth = preferences.getValue("middleNewsMonth", null);
-String middleNewsYear = preferences.getValue("middleNewsYear", null);
-Calendar middleNewsDate = defaultValueDate;
-if (middleNewsDay != null && middleNewsMonth != null && middleNewsYear != null) {
-	middleNewsDate = CalendarFactoryUtil.getCalendar(Integer.parseInt(middleNewsYear), Integer.parseInt(middleNewsMonth), Integer.parseInt(middleNewsDay));
+for(String newsPosition : newsPositions){
+	// Keys
+	String imageURLKey = newsPosition.concat("ImageURL");
+	String newsURLKey = newsPosition.concat("NewsURL");
+	String newsTextKey = newsPosition.concat("NewsText");
+	String newsDayKey = newsPosition.concat("NewsDay");
+	String newsMonthKey = newsPosition.concat("NewsMonth");
+	String newsYearKey = newsPosition.concat("NewsYear");
+	String newsDateKey = newsPosition.concat("NewsDate");
+	
+	newsMap.put(imageURLKey, preferences.getValue(imageURLKey, "/Top-news-portlet/img/default-news.png"));
+	newsMap.put(newsURLKey, preferences.getValue(newsURLKey, "http://www.tune-it.ru"));
+	newsMap.put(newsTextKey, preferences.getValue(newsTextKey, "You can change text/image in portlet preferences."));
+	
+	// Date
+	String newsDay = preferences.getValue(newsDayKey, null);
+	String newsMonth = preferences.getValue(newsMonthKey, null);
+	String newsYear = preferences.getValue(newsYearKey, null);
+	Calendar newsDate = defaultValueDate;
+	if (newsDay != null && newsMonth != null && newsYear != null) {
+		newsDate = CalendarFactoryUtil.getCalendar(Integer.parseInt(newsYear), Integer.parseInt(newsMonth), Integer.parseInt(newsDay));
+	}
+	newsMap.put(newsDateKey, newsDate);
 }
-String middleUploadProgressId = "middleIdImageUploadProgress";
-
-// Bottom
-String bottomImageURL = preferences.getValue("bottomImageURL", "");
-String bottomNewsURL = preferences.getValue("bottomNewsURL", "");
-String bottomNewsText = preferences.getValue("bottomNewsText", "");
-String bottomNewsDay = preferences.getValue("bottomNewsDay", null);
-String bottomNewsMonth = preferences.getValue("bottomNewsMonth", null);
-String bottomNewsYear = preferences.getValue("bottomNewsYear", null);
-Calendar bottomNewsDate = defaultValueDate;
-if (bottomNewsDay != null && bottomNewsMonth != null && bottomNewsYear != null) {
-	bottomNewsDate = CalendarFactoryUtil.getCalendar(Integer.parseInt(bottomNewsYear), Integer.parseInt(bottomNewsMonth), Integer.parseInt(bottomNewsDay));
-}
-String bottomUploadProgressId = "bottomIdImageUploadProgress";
 
 //Upload element initialization variables
 long imageId = 0;

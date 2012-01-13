@@ -33,16 +33,34 @@
 <%@ page import="com.liferay.portal.kernel.util.HtmlUtil" %>
 <%@ page import="com.liferay.portal.kernel.util.PropsKeys" %>
 <%@ page import="com.liferay.portal.kernel.util.StringUtil" %>
-<%@ page import="com.liferay.portlet.imagegallery.DuplicateImageNameException" %>
-<%@ page import="com.liferay.portlet.imagegallery.ImageNameException" %>
-<%@ page import="com.liferay.portlet.imagegallery.ImageSizeException" %>
-<%@ page import="com.liferay.portlet.imagegallery.NoSuchFolderException" %>
+
+<%@ page import="com.liferay.portlet.documentlibrary.DuplicateFileException" %>
+<%@ page import="com.liferay.portlet.documentlibrary.FileNameException" %>
+<%@ page import="com.liferay.portlet.documentlibrary.FileSizeException" %>
+<%@ page import="com.liferay.portlet.documentlibrary.NoSuchFolderException" %>
+
 <%@ page import="com.liferay.portal.util.PortalUtil" %>
+
+<%@ page import="com.liferay.portal.kernel.bean.BeanParamUtil" %>
+<%@ page import="com.liferay.portal.kernel.repository.model.FileEntry" %>
+
+<%@ page import="com.liferay.portlet.documentlibrary.service.DLAppLocalServiceUtil" %>
+<%@ page import="com.liferay.portlet.documentlibrary.model.DLFolder" %>
+<%@ page import="com.liferay.portlet.documentlibrary.model.DLFolderConstants" %>
+<%@ page import="com.liferay.portlet.documentlibrary.model.DLSearchConstants" %>
+
+<%@ page import="com.liferay.portal.kernel.repository.model.Folder" %>
+<%@ page import="com.liferay.portal.kernel.util.PrefsParamUtil" %>
 
 <portlet:defineObjects />
 <liferay-theme:defineObjects />
 
 <%
+
+final String DOCUMENT_LIBRARY_FOLDER = "DOCUMENT_LIBRARY_FOLDER";
+final String DOCUMENT_LIBRARY_FOLDERS = "DOCUMENT_LIBRARY_FOLDERS";
+final String DOCUMENT_LIBRARY_FILE_ENTRY = "DOCUMENT_LIBRARY_FILE_ENTRY";
+
 ResourceBundle res = portletConfig.getResourceBundle(locale);
 
 PortletPreferences preferences = renderRequest.getPreferences();

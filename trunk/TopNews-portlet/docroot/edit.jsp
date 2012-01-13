@@ -15,11 +15,53 @@
 <portlet:actionURL name="updatePreferences" var="updatePreferencesURL" />
 
 <%
+	
 	String tabNames = "Top,Middle,Bottom";
+	String[] imageExts = {".gif", ".jpeg", ".jpg", ".png"};
 	String tabs1 = ParamUtil.getString(request, "tabs1", "Top");
 	System.out.println(tabs1);
 	PortletURL portletURL = renderResponse.createRenderURL();
 	portletURL.setParameter("tabs1", tabs1);
+	
+	//new code
+	Folder folder = (com.liferay.portal.kernel.repository.model.Folder)request.getAttribute(DOCUMENT_LIBRARY_FOLDER);
+	System.out.println("folder (1) " + (folder!=null ? "not null" : "is null"));
+	long rootFolderId = PrefsParamUtil.getLong(preferences, request, "rootFolderId", DLFolderConstants.DEFAULT_PARENT_FOLDER_ID);
+	System.out.println("rootFolderId = " + rootFolderId);
+	folderId = BeanParamUtil.getLong(folder, request, "folderId", rootFolderId);
+	System.out.println("(1) folderId = " + folderId);
+	
+	if ((folder == null) && (folderId != DLFolderConstants.DEFAULT_PARENT_FOLDER_ID)) {
+		try {
+			folder = DLAppLocalServiceUtil.getFolder(folderId);
+			System.out.println("folder (2) is " + (folder!=null ? "not null" : "is null"));
+		}
+		catch (NoSuchFolderException nsfe) {
+			folderId = DLFolderConstants.DEFAULT_PARENT_FOLDER_ID;
+			System.out.println("(2) folderId = " + folderId);
+			System.out.println("after NoSuchFolderException - folderId = " + folderId);
+		}
+	}
+
+	long repositoryId = scopeGroupId;
+	System.out.println("(1) repositoryId = " + repositoryId);
+
+	System.out.println("folder (3) " + (folder!=null ? "not null" : "is null"));
+	if (folder != null) {
+		repositoryId = folder.getRepositoryId();
+		System.out.println("(2) repositoryId = " + repositoryId);
+	}
+	
+	FileEntry fileEntry = (FileEntry)request.getAttribute(DOCUMENT_LIBRARY_FILE_ENTRY);
+
+	long fileEntryId = BeanParamUtil.getLong(fileEntry, request, "fileEntryId");
+	System.out.println("(1) fileEntryId = " + fileEntryId);
+	
+	if (repositoryId <= 0) {
+		repositoryId = BeanParamUtil.getLong(fileEntry, request, "groupId");
+		System.out.println("(4) repositoryId = " + repositoryId);
+	}
+	
 %>
 
 <portlet:renderURL var="currentTabURL">
@@ -71,22 +113,20 @@
 							<aui:input name="uploadField" type="hidden" value="<%= newsPosition %>" />
 							<aui:input name="redirectURL" type="hidden" value="<%= currentTabURL %>" />
 							<aui:input name="tabs1" type="hidden" value="<%= tabs1 %>" />
+							<aui:input name="repositoryId" type="hidden" value="<%= repositoryId %>" />
 							<liferay-ui:error
-								exception="<%= DuplicateImageNameException.class %>"
+								exception="<%= DuplicateFileException.class %>"
 								message="please-enter-a-unique-image-name" />
 	
-							<liferay-ui:error exception="<%= ImageNameException.class %>">
+							<liferay-ui:error exception="<%= FileNameException.class %>">
 								<liferay-ui:message
 									key="image-names-must-end-with-one-of-the-following-extensions" />
 								<%=StringUtil.merge(
-												PrefsPropsUtil
-														.getStringArray(
-																PropsKeys.IG_IMAGE_EXTENSIONS,
-																StringPool.COMMA),
+												imageExts,
 												StringPool.COMMA_AND_SPACE)%>.
 							</liferay-ui:error>
 	
-							<liferay-ui:error exception="<%= ImageSizeException.class %>"
+							<liferay-ui:error exception="<%= FileSizeException.class %>"
 								message="please-enter-a-file-with-a-valid-file-size" />
 							<liferay-ui:error exception="<%= NoSuchFolderException.class %>"
 								message="please-enter-a-valid-folder" />
@@ -122,12 +162,12 @@
 
 		if (value) {
 			var extension = value.substring(value.lastIndexOf('.')).toLowerCase();
-			var validExtensions = ['<%= StringUtil.merge(PrefsPropsUtil.getStringArray(PropsKeys.IG_IMAGE_EXTENSIONS, StringPool.COMMA), "', '") %>'];
+			var validExtensions = ['<%= StringUtil.merge(imageExts, "', '") %>'];
 
 			if ((A.Array.indexOf(validExtensions, '*') == -1) &&
 				(A.Array.indexOf(validExtensions, extension) == -1)) {
 
-				alert('<%= UnicodeLanguageUtil.get(pageContext, "image-names-must-end-with-one-of-the-following-extensions") %> <%= StringUtil.merge(PrefsPropsUtil.getStringArray(PropsKeys.IG_IMAGE_EXTENSIONS, StringPool.COMMA), StringPool.COMMA_AND_SPACE) %>');
+				alert('<%= UnicodeLanguageUtil.get(pageContext, "image-names-must-end-with-one-of-the-following-extensions") %> <%= StringUtil.merge(imageExts, StringPool.COMMA_AND_SPACE) %>');
 
 				fileField.val('');
 			}

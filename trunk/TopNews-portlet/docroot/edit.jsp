@@ -69,8 +69,8 @@
 	<portlet:param name="tabs1" value="<%= tabs1 %>" />
 </portlet:renderURL>
 
-<liferay-ui:tabs names="<%=tabNames%>"
-	url="<%= portletURL.toString()%>">
+<liferay-ui:tabs names="<%= tabNames %>"
+	url="<%= portletURL.toString() %>">
 	
 	<%
 	for(String newsPosition : newsPositions) {

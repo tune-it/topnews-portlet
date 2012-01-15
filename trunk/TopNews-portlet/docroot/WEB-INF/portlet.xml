@@ -21,8 +21,8 @@
 		<expiration-cache>0</expiration-cache>
 		<supports>
 			<mime-type>text/html</mime-type>
-			<portlet-mode>VIEW</portlet-mode>
-			<portlet-mode>EDIT</portlet-mode>
+            <portlet-mode>view</portlet-mode>
+            <portlet-mode>edit</portlet-mode>
 		</supports>
 		<portlet-info>
 			<title>Top news</title>

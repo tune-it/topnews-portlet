@@ -7,7 +7,7 @@
 		<icon>/icon.png</icon>
 		<instanceable>true</instanceable>
 		<header-portlet-css>/css/main.css</header-portlet-css>
-		<header-portlet-javascript>/js/jquery-1.6.2.min.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/jquery-1.7.2.min.js</header-portlet-javascript>
 		<css-class-wrapper>Top-news-portlet</css-class-wrapper>
 	</portlet>
 	<role-mapper>

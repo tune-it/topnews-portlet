@@ -8,7 +8,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <groupId>com.tuneit.topnews</groupId>
-    <artifactId>com.tuneit.topnews.portlet</artifactId>
+    <artifactId>TopNews-portlet</artifactId>
     <packaging>war</packaging>
     <name>TopNews-portlet</name>
     <version>1.0-SNAPSHOT</version>

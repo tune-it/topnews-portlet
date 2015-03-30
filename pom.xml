@@ -6,7 +6,7 @@
     <artifactId>topnews-portlet</artifactId>
     <packaging>war</packaging>
     <name>topnews-portlet</name>
-    <version>6.1.2.0</version>
+    <version>6.2.2.0</version>
     <build>
         <plugins>
             <plugin>
@@ -86,6 +86,6 @@
     </dependencies>
     <properties>
         <liferay.auto.deploy.dir/>
-        <liferay.version>6.1.2</liferay.version>
+        <liferay.version>6.2.2</liferay.version>
     </properties>
 </project>

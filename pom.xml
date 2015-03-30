@@ -2,16 +2,11 @@
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>com.tuneit.topnews</groupId>
-        <artifactId>TopNews</artifactId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
     <groupId>com.tuneit.topnews</groupId>
-    <artifactId>TopNews-portlet</artifactId>
+    <artifactId>topnews-portlet</artifactId>
     <packaging>war</packaging>
-    <name>TopNews-portlet</name>
-    <version>1.0-SNAPSHOT</version>
+    <name>topnews-portlet</name>
+    <version>6.1.2.0</version>
     <build>
         <plugins>
             <plugin>
@@ -89,4 +84,8 @@
             <version>1.2</version>
         </dependency>
     </dependencies>
+    <properties>
+        <liferay.auto.deploy.dir/>
+        <liferay.version>6.1.2</liferay.version>
+    </properties>
 </project>

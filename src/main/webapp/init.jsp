@@ -86,7 +86,7 @@
         String newsYearKey = newsPosition.concat("NewsYear");
         String newsDateKey = newsPosition.concat("NewsDate");
 
-        newsMap.put(imageURLKey, preferences.getValue(imageURLKey, "/Top-news-portlet/img/default-news.png"));
+        newsMap.put(imageURLKey, preferences.getValue(imageURLKey, "/topnews-portlet/img/default-news.png"));
         newsMap.put(newsURLKey, preferences.getValue(newsURLKey, "http://www.tune-it.ru"));
         newsMap.put(newsTextKey, preferences.getValue(newsTextKey, "You can change text/image in portlet preferences."));
 

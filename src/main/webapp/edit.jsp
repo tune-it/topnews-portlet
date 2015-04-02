@@ -100,9 +100,7 @@ url="<%= portletURL.toString() %>">
                                 monthParam='<%= newsPosition.concat("NewsMonth") %>'
                                 monthValue="<%= newsDate.get(Calendar.MONTH) %>"
                                 yearParam='<%= newsPosition.concat("NewsYear") %>'
-                                yearValue="<%= newsDate.get(Calendar.YEAR) %>"
-                                yearRangeStart="<%= newsDate.get(Calendar.YEAR) - 10 %>"
-                                yearRangeEnd="<%= newsDate.get(Calendar.YEAR) + 50 %>" />
+																yearValue="<%= newsDate.get(Calendar.YEAR) %>" />
                         </div>
                         <aui:input label="Image (260x250px) URL" name="imageURL" value="<%= imageURL %>" />
                         <aui:input name="imageId" type="hidden" value="<%= imageId %>" />

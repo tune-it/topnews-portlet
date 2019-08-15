@@ -6,7 +6,7 @@
         <portlet-name>TopNewsPortlet</portlet-name>
         <icon>/icon.png</icon>
         <instanceable>true</instanceable>
-        <header-portlet-css>/css/main.css</header-portlet-css>
+        <header-portlet-css>/resources/css/main.css</header-portlet-css>
         <header-portlet-javascript>/js/jquery-2.1.3.min.js</header-portlet-javascript>
         <css-class-wrapper>Top-news-portlet</css-class-wrapper>
     </portlet>

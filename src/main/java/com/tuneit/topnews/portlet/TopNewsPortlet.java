@@ -1,29 +1,38 @@
 package com.tuneit.topnews.portlet;
 
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.repository.model.FileEntry;
-import com.liferay.portal.kernel.servlet.BrowserSnifferUtil;
-import com.liferay.portal.kernel.servlet.SessionErrors;
-import com.liferay.portal.kernel.upload.UploadPortletRequest;
-import com.liferay.portal.kernel.util.*;
-import com.liferay.portal.service.ServiceContextFactory;
-import com.liferay.portal.theme.ThemeDisplay;
-import com.liferay.portal.util.PortalUtil;
-import com.liferay.portlet.documentlibrary.*;
-import com.liferay.portlet.documentlibrary.model.DLFileEntry;
-import com.liferay.portlet.documentlibrary.service.DLAppServiceUtil;
-import com.liferay.util.bridges.mvc.MVCPortlet;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletPreferences;
 import javax.servlet.http.HttpServletRequest;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+
+import com.liferay.document.library.kernel.exception.DuplicateFileException;
+import com.liferay.document.library.kernel.exception.DuplicateFolderNameException;
+import com.liferay.document.library.kernel.exception.FileExtensionException;
+import com.liferay.document.library.kernel.exception.FileMimeTypeException;
+import com.liferay.document.library.kernel.exception.FileNameException;
+import com.liferay.document.library.kernel.exception.FileSizeException;
+import com.liferay.document.library.kernel.exception.NoSuchFileEntryException;
+import com.liferay.document.library.kernel.exception.NoSuchFolderException;
+import com.liferay.document.library.kernel.exception.SourceFileNameException;
+import com.liferay.document.library.kernel.model.DLFileEntry;
+import com.liferay.document.library.kernel.service.DLAppServiceUtil;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
+import com.liferay.portal.kernel.repository.model.FileEntry;
+import com.liferay.portal.kernel.servlet.BrowserSnifferUtil;
+import com.liferay.portal.kernel.servlet.SessionErrors;
+import com.liferay.portal.kernel.upload.UploadPortletRequest;
+import com.liferay.portal.kernel.util.*;
+import com.liferay.portal.kernel.service.ServiceContextFactory;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.PortalUtil;
 
 public class TopNewsPortlet extends MVCPortlet {
 

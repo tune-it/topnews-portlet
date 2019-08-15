@@ -82,8 +82,8 @@ url="<%= portletURL.toString() %>">
 
     <liferay-ui:section>
         <div style="padding: 5px;">
-            <aui:layout>
-                <aui:column columnWidth="60" first="true">
+            <div>
+                <div>
                     <!-- upload element -->
                     <aui:form action="<%= updatePreferencesURL %>"
                     enctype="multipart/form-data" method="post" name='<%= "fm-".concat(newsPosition) %>'>
@@ -130,13 +130,13 @@ url="<%= portletURL.toString() %>">
                         </aui:fieldset>
                     </aui:form>
 
-                </aui:column>
-                <aui:column columnWidth="40" cssClass="txt-right" last="true">
+                </div>
+                <div class="txt-right">
                     <img src="<%= imageURL %>" alt="<%= newsText %>"  
                          width="260" height="250" class="img-preview"/>
                     <div class="gray clear">260x250</div>
-                </aui:column>
-            </aui:layout>
+                </div>
+            </div>
         </div>
     </liferay-ui:section>
 
@@ -156,7 +156,7 @@ url="<%= portletURL.toString() %>">
             var validExtensions = ['<%= StringUtil.merge(imageExts, "', '") %>'];
 
             if ((A.Array.indexOf(validExtensions, '*') == -1) && (A.Array.indexOf(validExtensions, extension) == -1)) {
-                alert('<%= UnicodeLanguageUtil.get(pageContext, "image-names-must-end-with-one-of-the-following-extensions") %> <%= StringUtil.merge(imageExts, StringPool.COMMA_AND_SPACE) %>');
+                alert('Image names must end with one of the followin extensions: <%= StringUtil.merge(imageExts, StringPool.COMMA_AND_SPACE) %>');
                 fileField.val('');
             }
         }

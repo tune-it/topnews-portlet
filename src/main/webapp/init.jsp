@@ -1,6 +1,6 @@
 <%
     /**
-     * Copyright (c) 2013-15 Tune IT.
+     * Copyright (c) 2013-19 Tune IT.
      */
 %>
 
@@ -26,7 +26,7 @@
 <%@ page import="com.liferay.portal.kernel.util.Validator"%>
 <%@ page import="com.liferay.portal.kernel.util.StringPool" %>
 <%@ page import="com.liferay.portal.kernel.util.CalendarFactoryUtil" %>
-<%@ page import="com.liferay.portlet.PortletPreferencesFactoryUtil"%>
+<%@ page import="com.liferay.portal.kernel.portlet.PortletPreferencesFactoryUtil"%>
 <%@ page import="com.liferay.portal.kernel.util.PrefsPropsUtil" %>
 <%@ page import="com.liferay.portal.kernel.language.LanguageUtil" %>
 <%@ page import="com.liferay.portal.kernel.language.UnicodeLanguageUtil" %>
@@ -34,20 +34,20 @@
 <%@ page import="com.liferay.portal.kernel.util.PropsKeys" %>
 <%@ page import="com.liferay.portal.kernel.util.StringUtil" %>
 
-<%@ page import="com.liferay.portlet.documentlibrary.DuplicateFileException" %>
-<%@ page import="com.liferay.portlet.documentlibrary.FileNameException" %>
-<%@ page import="com.liferay.portlet.documentlibrary.FileSizeException" %>
-<%@ page import="com.liferay.portlet.documentlibrary.NoSuchFolderException" %>
+<%@ page import="com.liferay.document.library.kernel.exception.DuplicateFileException" %>
+<%@ page import="com.liferay.document.library.kernel.exception.FileNameException" %>
+<%@ page import="com.liferay.document.library.kernel.exception.FileSizeException" %>
+<%@ page import="com.liferay.document.library.kernel.exception.NoSuchFolderException" %>
 
-<%@ page import="com.liferay.portal.util.PortalUtil" %>
+<%@ page import="com.liferay.portal.kernel.util.PortalUtil" %>
 
 <%@ page import="com.liferay.portal.kernel.bean.BeanParamUtil" %>
 <%@ page import="com.liferay.portal.kernel.repository.model.FileEntry" %>
 
-<%@ page import="com.liferay.portlet.documentlibrary.service.DLAppLocalServiceUtil" %>
-<%@ page import="com.liferay.portlet.documentlibrary.model.DLFolder" %>
-<%@ page import="com.liferay.portlet.documentlibrary.model.DLFolderConstants" %>
-<%@ page import="com.liferay.portlet.documentlibrary.model.DLSearchConstants" %>
+<%@ page import="com.liferay.document.library.kernel.service.DLAppLocalServiceUtil" %>
+<%@ page import="com.liferay.document.library.kernel.model.DLFolder" %>
+<%@ page import="com.liferay.document.library.kernel.model.DLFolderConstants" %>
+<%@ page import="com.liferay.document.library.kernel.model.DLSearchConstants" %>
 
 <%@ page import="com.liferay.portal.kernel.repository.model.Folder" %>
 <%@ page import="com.liferay.portal.kernel.util.PrefsParamUtil" %>
@@ -86,8 +86,8 @@
         String newsYearKey = newsPosition.concat("NewsYear");
         String newsDateKey = newsPosition.concat("NewsDate");
 
-        newsMap.put(imageURLKey, preferences.getValue(imageURLKey, "/topnews-portlet/img/default-news.png"));
-        newsMap.put(newsURLKey, preferences.getValue(newsURLKey, "http://www.tune-it.ru"));
+        newsMap.put(imageURLKey, preferences.getValue(imageURLKey, "/o/topnews-portlet/img/default-news.png"));
+        newsMap.put(newsURLKey, preferences.getValue(newsURLKey, "https://www.tune-it.ru"));
         newsMap.put(newsTextKey, preferences.getValue(newsTextKey, "You can change text/image in portlet preferences."));
 
         // Date
